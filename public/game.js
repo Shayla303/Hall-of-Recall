@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
+var game = new Phaser.Game(1150, 600, Phaser.AUTO, 'game', {
   preload: preload,
   create: create,
   update: update
@@ -11,13 +11,15 @@ function preload() {
 }
 
 function create() {
+  game.world.setBounds(0, 0, 1280, 800);
   game.physics.startSystem(Phaser.Physics.ARCADE);
   map = game.add.tilemap('hRecall_map');
   map.addTilesetImage('castle', 'tiles');
   bgLayer = map.createLayer('bgLayer');
   collisionLayer = map.createLayer('collisionLayer');
-  reliefLayer = map.createLayer('reliefLayer')
+  reliefLayer = map.createLayer('reliefLayer');
 
+  // map.setCollisionBetween(0, 999);
 
   player = game.add.sprite(100, game.world.height - 550, 'dude');
   game.physics.arcade.enable(player);
@@ -26,12 +28,19 @@ function create() {
   player.body.collideWorldBounds = true;
   player.animations.add('left', [0, 1, 2, 3], 10, true);
   player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+  jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  cursors = game.input.keyboard.createCursorKeys();
+  console.log(player);
 }
 
-function update() {
-  cursors = game.input.keyboard.createCursorKeys();
-  player.body.velocity.x = 0;
+var jumpTimer = 0;
+var player;
 
+function update() {
+  map.
+  game.camera.follow(player);
+  player.body.velocity.x = 0;
   if (cursors.left.isDown) {
     player.body.velocity.x = -150;
     player.animations.play('left');
@@ -43,8 +52,8 @@ function update() {
     player.frame = 4;
   }
 
-// Define hitPlatform DO ET
-  if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
-    player.body.velocity.y = -350;
+  if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
+    player.body.velocity.y = -250;
+    jumpTimer = game.time.now + 750;
   }
 }

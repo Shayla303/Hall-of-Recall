@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var knex = require('knex');
 var pg = require('pg');
 
-
 //routes
 // var index = require('./routes/index');
 // var users = require('./routes/users');
@@ -67,7 +66,9 @@ app.get('/index', (req,res) => {
 app.get('/game', (req,res) => {
   res.render('game');
 });
-
+app.get('/howto', (req,res) => {
+  res.render('howto');
+});
 // app.use('/index', index);
 // app.use('/users', users);
 
