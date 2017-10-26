@@ -2,7 +2,7 @@
 Virtual memory palace in a game space.
 
 ## Heroku
-### https://hall-of-recall.herokuapp.com/
+### https://the-hall-of-recall.herokuapp.com/
 
 ## Github
 ### https://git.heroku.com/hall-of-recall.git
